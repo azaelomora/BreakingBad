@@ -6,15 +6,6 @@ muestra frases aleatorias de los personajes junto con quién lo dijo.
  
  Así como un botón para solicitar otra frase.
  ```
- ***
- * Todos
- * Pendites
- * Completados
- ***
 
- También un contador de pendientes
- y un botón para borrar los completados,
- los cuales se mantendrán aunque se recargue la página,
- porque se trabaja con el "Local Storage".
 
- Link del juego: "```https://list-todo-amr.netlify.app/```"
+ Link del sitio: "```https://breakingbad-app-amr.netlify.app/```"
