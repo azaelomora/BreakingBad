@@ -1,3 +1,4 @@
+import { User } from "../models/user";
 import { loadUsersByPage } from "../use-cases/load-users-by-page";
 
 
@@ -15,18 +16,43 @@ const loadNextPage = async() => {
 }
 
 const loadPreviousPage = async() => {
-    throw new Error('Not implemented');
+    if(state.currentPage === 1) return;
+    const users = await loadUsersByPage(state.currentPage - 1);
+    
+    state.users = users;
+    state.currentPage -= 1;
+    
 
 }
 
-
-const onUserChanged = async() => {
-    throw new Error('Not implemented');
+/**
+ * 
+ * @param {User} updatedUser
+ */
+const onUserChanged = async(updatedUser) => {
     
+    let wasFound = false;
+
+    state.users = state.users.map(user => {
+        if(user.id === updatedUser.id) {
+            wasFound = true;
+            return updatedUser;
+        }
+        return user;
+    });
+
+    if( state.users.length < 10 && !wasFound){
+        state.users.push(updatedUser);
+    }
 }
 
 const reloadPage = async() => {
-    throw new Error('Not implemented');
+    const users = await loadUsersByPage(state.currentPage);
+    if(users.length === 0) {
+        await loadPreviousPage();
+        return; 
+    }
+    state.users = users;
 
 }
 
